@@ -85,20 +85,22 @@ class MyDialog {
         fun showMultiLineInputDialog(
             context: Context,
             title: String = "提示",
+            default: String = "",
             okCallback: ((dialog: BaseDialog?, content: String) -> Unit)? = null,
             cancelCallback: (() -> Unit)? = null
         ) {
             InputDialog.Builder(context)
                 .setCustomView(R.layout.multiline_input_dialog)
                 .setTitle(title)
+                .setDefault(default)
                 .setAutoDismiss(false)
                 .setListener(object : InputDialog.OnListener{
-                    override fun onConfirm(dialog: BaseDialog?, content: String) {
+                    override fun onConfirm(dialog: BaseDialog, content: String) {
                         okCallback?.let { it(dialog, content) }
                     }
 
-                    override fun onCancel(dialog: BaseDialog?) {
-                        dialog?.dismiss()
+                    override fun onCancel(dialog: BaseDialog) {
+                        dialog.dismiss()
                         cancelCallback?.let { it() }
                     }
                 })
@@ -114,20 +116,24 @@ class MyDialog {
         fun showSingleLineInputDialog(
             context: Context,
             title: String = "提示",
-            okCallback: ((dialog: BaseDialog?, content: String) -> Unit)? = null,
+            default: String = "",
+            maxLength: Int = 0,
+            okCallback: ((dialog: BaseDialog, content: String) -> Unit)? = null,
             cancelCallback: (() -> Unit)? = null
         ) {
             InputDialog.Builder(context)
                 .setCustomView(R.layout.singleline_input_dialog)
                 .setTitle(title)
+                .setDefault(default)
+                .setMaxLength(maxLength)
                 .setAutoDismiss(false)
                 .setListener(object : InputDialog.OnListener{
-                    override fun onConfirm(dialog: BaseDialog?, content: String) {
+                    override fun onConfirm(dialog: BaseDialog, content: String) {
                         okCallback?.let { it(dialog, content) }
                     }
 
-                    override fun onCancel(dialog: BaseDialog?) {
-                        dialog?.dismiss()
+                    override fun onCancel(dialog: BaseDialog) {
+                        dialog.dismiss()
                         cancelCallback?.let { it() }
                     }
                 })

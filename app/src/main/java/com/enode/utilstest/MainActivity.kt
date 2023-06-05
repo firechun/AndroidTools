@@ -3,6 +3,7 @@ package com.enode.utilstest
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.enode.utilstest.databinding.ActivityMainBinding
 import com.firechun.dialog.MessageDialog
 import com.firechun.dialog.MyDialog
@@ -19,8 +20,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
 //            MyDialog.showConfirm(this, "这是消息框")
-//            MyDialog.showSingleLineInputDialog(this)
-            MyDialog.showMessage(this, message = "我是消息框")
+            MyDialog.showSingleLineInputDialog(this, maxLength = 10, okCallback =  {_, content ->
+                LogUtil.e(content)
+            })
+//            MyDialog.showMessage(this, message = "我是消息框")
+//            MyDialog.showMultiLineInputDialog(this, default = "13590108551")
         }
     }
 }

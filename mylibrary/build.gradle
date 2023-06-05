@@ -34,13 +34,13 @@ android {
     }
     //生成aar
     libraryVariants.all { variant ->
-        def name = "library-${versionMajor}.${versionMinor}.${versionPatch}.aar"
+        def name = "mylibrary-${versionMajor}.${versionMinor}.${versionPatch}.aar"
         variant.outputs.all {
             outputFileName = name
         }
         //打包完成后的动作
         variant.assembleProvider.get().doLast {
-            File out = new File("${project.rootDir}/maven")
+            File out = new File("${project.rootDir}/maven-mylibraray")
             variant.outputs.all {
                 def provider = variant.packageLibraryProvider.get()
                 def file = provider.destinationDirectory.getAsFile().get()

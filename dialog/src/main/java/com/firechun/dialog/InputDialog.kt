@@ -1,6 +1,8 @@
 package com.firechun.dialog
 
 import android.content.Context
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +42,14 @@ class InputDialog {
             return b
         }
 
+        fun setDefault(text: CharSequence): Builder = apply {
+            inputView?.setText(text)
+        }
+        fun setMaxLength(maxLength: Int): Builder = apply {
+            if (maxLength > 0) {
+                inputView!!.filters = arrayOf<InputFilter>(object : LengthFilter(maxLength) {})
+            }
+        }
         fun setHint(@StringRes id: Int): Builder = apply {
             setHint(getString(id))
         }
@@ -112,11 +122,11 @@ class InputDialog {
         /**
          * 点击确定时回调
          */
-        fun onConfirm(dialog: BaseDialog?, content: String)
+        fun onConfirm(dialog: BaseDialog, content: String)
 
         /**
          * 点击取消时回调
          */
-        fun onCancel(dialog: BaseDialog?) {}
+        fun onCancel(dialog: BaseDialog) {}
     }
 }
