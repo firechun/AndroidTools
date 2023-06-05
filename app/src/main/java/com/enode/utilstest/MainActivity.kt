@@ -1,13 +1,26 @@
 package com.enode.utilstest
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.enode.mylibrary.LogUtil
+import com.enode.utilstest.databinding.ActivityMainBinding
+import com.firechun.dialog.MessageDialog
+import com.firechun.dialog.MyDialog
+import com.firechun.dialog.base.BaseDialog
+import com.firechun.mylibrary.LogUtil
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         LogUtil.e("测试库")
+
+        binding.button.setOnClickListener {
+//            MyDialog.showConfirm(this, "这是消息框")
+//            MyDialog.showSingleLineInputDialog(this)
+            MyDialog.showMessage(this, message = "我是消息框")
+        }
     }
 }
